@@ -1,0 +1,33 @@
+#!/bin/bash 
+wew | \
+while IFS=: read ev wid; do
+	# Ignore ignored windows
+	wattr o "$wid"
+	if [[ "$?" -eq 0 ]]; then
+		continue
+	fi
+	case "$ev" in
+		# Enter/leave events
+		7)
+			;;
+		8)
+			;;
+		# Focus in/out
+		9)
+			;;
+		10)
+			;;
+		# Create window event
+		16)
+			echo man
+			;;
+		# Close window event
+		17)
+			;;
+		18)
+			;;
+	esac
+
+	# Save current event for next event (needed by 19)
+	lastev="$ev:$wid"
+done

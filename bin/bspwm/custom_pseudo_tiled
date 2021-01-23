@@ -1,0 +1,9 @@
+#!/bin/bash
+bspc node focused --state ~pseudo_tiled
+if [ $(bspc query -N -n east.local) ] || [ $(bspc query -N -n west.local) ]; then
+	bspc node focused.pseudo_tiled --resize right 1000 1000
+elif [ $(bspc query -N -n north.local) ] || [ $(bspc query -N -n south.local) ]; then
+	bspc node focused.pseudo_tiled --resize bottom 1000 1000
+else
+	exit
+fi

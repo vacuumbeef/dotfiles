@@ -1,0 +1,19 @@
+#!/bin/bash
+# Makes window floating, resizes it and moves to the corner
+# 4 possible arguments: rbot - right bottom; rtop - right top; lbot; ltop
+
+# Calculating display dimensions
+	x=$(( $(xdpyinfo | grep dimensions |  awk -F'[ x]' '{print $7}') - 316 ))
+	y=$(( $(xdpyinfo | grep dimensions |  awk -F'[ x]' '{print $8}') - 185 ))
+
+move_to_corner() {
+	case $1 in
+	        rbot) wmctrl -r :ACTIVE: -e 0,$x,$y,300,169 ;;
+	        rtop) wmctrl -r :ACTIVE: -e 0,$x,15,300,169 ;;
+	        lbot) wmctrl -r :ACTIVE: -e 0,15,$y,300,169 ;;
+	        ltop) wmctrl -r :ACTIVE: -e 0,15,15,300,169 ;;
+	esac
+}
+
+[ -z "$(bspc query -N -n focused.floating)" ] && bspc node focused -t floating && move_to_corner $1 && exit 0
+[ -n "$(bspc query -N -n focused.floating)" ] && move_to_corner $1

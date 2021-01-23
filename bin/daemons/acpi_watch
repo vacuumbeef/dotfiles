@@ -1,0 +1,11 @@
+#!/bin/bash
+while read -r line; do
+	case $line in
+		"ac_adapter ACPI0003:00 00000080 00000001")
+			ac_plug plugged ;;
+		"ac_adapter ACPI0003:00 00000080 00000000")
+			ac_plug unplugged ;;
+		"jack/headphone"*)
+			dzen_volume -i 0 ;;
+	esac
+done < <(acpi_listen)

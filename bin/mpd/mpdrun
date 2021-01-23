@@ -1,0 +1,4 @@
+#!/bin/bash
+pidof mpd || mpd
+cp ~/bin/mpd/Cover.png /tmp/Cover.png
+pidof mpdscribble || exec mpdscribble --conf ~/.config/mpd/mpdscribble.conf

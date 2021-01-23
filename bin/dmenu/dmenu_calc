@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# Slightly changed script from https://github.com/onespaceman/menu-calc
+# Calculator for use with dmenu
+# Copying to the clipboard requires xclip
+
+. "${HOME}/.cache/wal/colors.sh"
+
+usage() {
+    echo "    $(tput bold)menu calc$(tput sgr0)
+    A calculator for use with dmenu
+    Basic usage:
+    = 4+2
+    = (4+2)/(4+3)
+    = 4^2
+    = sqrt(4)
+    = c(2)
+    The answer can be used for further calculations
+    The expression may need quotation marks if
+    launched outside of dmenu"
+    exit
+}
+
+case $1 in
+    -h|--help) usage ;;
+esac
+
+menu=dmenu_uni
+
+answer=$(echo "$@" | bc -l | sed '/\./ s/\.\{0,1\}0\{1,\}$//')
+
+action=$(echo -e "Copy\nClear\nClose" |
+$menu -w 300 -x 533 -p "=$answer")
+
+case $action in
+    "Clear") $0 ;;
+    "Copy to clipboard") echo -n "$answer" | xclip -selection clipboard ;;
+    "Close") ;;
+    "") ;;
+    *) $0 "$answer $action" ;;
+esac

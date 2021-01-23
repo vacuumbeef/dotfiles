@@ -1,0 +1,14 @@
+#!/bin/bash
+bspc subscribe node_focus | while read line; do
+class=$(wm_class_active_window | awk -F'[""]' 'NR==1{print tolower ($4)}')
+num=$(bspc query -N -d $DESKTOP_SEL | grep -f <(bspc query -N -n .leaf) | grep -v -w "$float" | wc -l)
+if [[ "$class" == "qutebrowser" ]]; then 
+	if [[ "$num" -lt 2 ]]; then
+		bspc config split_ratio 0.70
+	else
+		bspc config split_ratio 0.60
+	fi
+else
+	bspc config split_ratio 0.50
+fi
+done

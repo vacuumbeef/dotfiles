@@ -1,0 +1,8 @@
+#!/bin/bash
+#echo  | lemonbar -p -o -1 -f "RobotoMono Nerd Font:size=9" -d -g 12x12+5+5
+while true; do
+	echo  | lemonbar -p -o -1 -f "RobotoMono Nerd Font:size=9" -d -g 12x12+5+5 &
+	sleep 1
+	killall lemonbar
+	sleep 0.5
+done

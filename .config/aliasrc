@@ -1,0 +1,43 @@
+#!/bin/sh
+alias zshconfig="nvim ~/.zshrc"
+alias pkgs="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+alias ..='cd ..'
+alias v='nvim'
+alias sv='sudo st -c nvimedit -e nvim'
+alias clr='clear'
+
+alias ys='yay -S'
+alias yr='yay -Rns'
+alias yss='yay -Ss'
+alias yu='yay -Syu'
+
+
+#alias gh='cd $HOME'
+#alias gb='cd $HOME/bin'
+#alias gc='cd $HOME/.config'
+
+
+alias pacs='sudo pacman -S'
+
+alias sysd='sudo systemctl disable'
+alias syse='sudo systemctl enable'
+alias systart='sudo systemctl start'
+alias systop='sudo systemctl stop'
+alias systat='sudo systemctl -l statis'
+
+alias dmen='dmenu_run -nb "$color0" -nf "$color15" -sb "$color1" -sf "$color15"'
+alias vf='vifmrun'
+alias m='mpv'
+
+ydb() { youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' "$1" ;}
+encr7z() { 7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=32m -ms=on -mhe=on -p'' $1 $2 ;}
+
+s() { find -P ~/bin/* | fzf | xargs -r $EDITOR ;}
+c() { find -P ~/.config/* | fzf | xargs -r $EDITOR ;}
+mkd() { mkdir $1 && echo "$1 is created" && ls ;}
+wiki() { nvim $HOME/otr/wiki/index.wiki ;}
+sc() { sclang $HOME/dwn/git/crt-live-coding/sc-foxdot-visual.scd ;}
+fd() { python3 $HOME/dwn/git/crt-live-coding/foxdot-server.py ;}
+remote_syncthing() { ssh -N -L 9090:127.0.0.1:8384 userserv@192.168.0.106 ;}
+muzmount() { sshfs userserv@192.168.0.106:/mnt/muz ~/muz ;}
+dic() { sdcv --data-dir $HOME/otr/dict/stardict-dictd_www.dict.org_gcide-2.4.2 $@ | less ;}

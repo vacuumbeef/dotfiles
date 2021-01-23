@@ -1,0 +1,6 @@
+#!/bin/bash
+if $(pgrep jackd >/dev/null); then
+	mpv --ao=jack $1 "$2"
+else
+	mpv $1 "$2"
+fi

@@ -1,0 +1,18 @@
+#!/bin/bash
+# Скрипт для просмотра расписания электричек с/до станций из списка, указанного в переменной file
+
+api_key=66c5ccca-843d-43d6-826d-5546366f7be1
+date=$(date +%Y-%m-%d)
+file=$CONF/scripts/rasp/stations
+from=$(cat $file | cut -d- -f2- | rofi -dmenu -p From | grep -f - $file | cut -d- -f1 | rev | cut -c2- | rev)
+to=$(cat $file | cut -d- -f2- | rofi -dmenu -p To | grep -f - $file | cut -d- -f1 | rev | cut -c2- | rev)
+result=$(curl -s "https://api.rasp.yandex.net/v3.0/search/?apikey={$api_key}&format=json&from=$from&to=$to&lang=ru_RU&transport_types=suburban&page=1&date=$date")
+depart=$(echo $result | json_reformat | grep '"departure"' | cut -d'"' -f4 | cut -c12-16)
+arrival=$(echo $result | json_reformat | grep '"arrival"' | cut -d'"' -f4 | cut -c12-16)
+price=$(echo $result | json_reformat | grep -m1 whole | cut -d':' -f2)
+
+date "+%Y.%m.%d %R"
+echo "Price:"$price" rub"
+echo "---------------"
+echo "Depart  Arrival"
+paste <(echo "$depart") <(echo "$arrival") --delimiters '	'

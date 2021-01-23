@@ -1,0 +1,22 @@
+#!/bin/bash
+d=$HOME/dwn
+for i in "$d"/*/
+do
+	#Audio
+	ls -I aud "${i%%/}"/*.flac && mv -i "$i" $d/aud
+	ls -I aud "${i%%/}"/*.mp3 && mv -i "$i" $d/aud
+	ls -I aud "${i%%/}"/*.m4a && mv -i "$i" $d/aud
+	ls -I aud "${i%%/}"/*.wav && mv -i "$i" $d/aud
+	ls -I aud "${i%%/}"/*.ogg && mv -i "$i" $d/aud
+done
+	mv -i $DWN/*.{mp3,ogg,wav,flac} $DWN/aud
+	#Pix
+	mv -i $DWN/*.{jpg,jpeg,gif,bmp,png} $DWN/pix
+	#Video
+	mv -i $DWN/*.{mp4,avi,webm,mkv} $DWN/vid
+	#Documents
+	mv -i $DWN/*.{pdf,docx} $DWN/dox
+	#Archives
+	mv -i $DWN/*.{zip,tar.gz,rar} $DWN/arc
+	#Disk images
+	mv -i $DWN/*.{iso,mdf,mds} $DWN/dsk

@@ -1,0 +1,29 @@
+#!/usr/bin/env zsh
+##   
+source ~/bin/bar/colors
+
+active=
+inactive=
+focused=%{F$color3}
+occupied=%{F$color2}
+empty=%{F$color8}
+pidfile=/tmp/bar_pidfile
+
+if [ -f "$pidfile" ]; then
+	echo still running
+	for i in $(ps aux | grep killbar | grep bash | awk '{ print $2 }'); do
+		kill $i;
+	done
+	killbar
+else
+	#inotifywait -e modify -m /tmp/dwm_tags | \
+	#while read ev; do
+	killbar &
+	while : ; do
+	#for i in {1..15} ; do
+		cat /tmp/dwm_tags | sed s/:O./$focused/g | sed s/:E./$focused/g | sed s/:e./$empty/g | sed s/:o./$occupied/g
+		sleep 0.2
+	echo $$ > $pidfile
+	done | lemonbar -o -1 -f "RobotoMono Nerd Font:size=25" -d -g 120x3+623+3
+	rm $pidfile
+fi

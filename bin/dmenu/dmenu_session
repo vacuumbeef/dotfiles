@@ -1,0 +1,21 @@
+#!/bin/bash
+# dmenu script from logout/restart/shutdown/sleep/hibernate selection
+
+selection=$(echo -e "logout\nrestart\nshutdown\nsleep\nhibernate" | dmenu_uni -p Session -w 435 -x 465)
+case "$selection" in
+	logout)
+		killall bspwm && sleep 2 && exit
+		;;
+	restart)
+		systemctl reboot
+		;;
+	shutdown)
+		systemctl poweroff
+		;;
+	sleep)
+		systemctl suspend
+		;;
+	hibernate)
+		systemctl hibernate
+		;;
+esac

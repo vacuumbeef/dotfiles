@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+source ~/bin/bar/colors
+
+w=60
+h=25
+x=10
+y=100
+
+if [ -f "/tmp/updates_pidfile" ]; then
+	kill -9 $(cat /tmp/updates_pidfile)
+	rm /tmp/updates_pidfile
+	echo still running
+    	exit 1
+fi
+
+upd_file=/tmp/updatescache
+upd_icon=' '
+upd_icon=''
+pac=$(head -1 $upd_file)
+aur=$(head -2 $upd_file | tail -1)
+if (((pac + aur) > 0)); then
+for i in 1 ; do
+        echo "%{c}$upd_icon $pac / $aur"
+	sleep 6
+	rm /tmp/updates_pidfile
+done | lemonbar -d -o 1 -f "DejaVu Sans:size=8" -f "RobotoMono Nerd Font:size=9" -F "$fg" -B "$bg" -g ${w}x${h}+${x}+$((y + (h+y) * n)) &
+echo $! >> /tmp/updates_pidfile
+fi

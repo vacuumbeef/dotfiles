@@ -1,0 +1,4 @@
+#!/bin/bash
+dunstify -r 123 "Youtube-DL" "Downloading video"
+youtube-dl -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" -o "$HOME/dwn/vid/%(title)s.%(ext)s" "$1" && dunstify -r 123 "Youtube-DL" "Done" || dunstify -r 123 -u critical "Youtube-DL" "Error"
+

@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+source ~/bin/bar/colors
+
+h=25
+x=10
+y=40
+
+if [ -f "/tmp/forecast_pidfile" ]; then
+	kill -9 $(cat /tmp/forecast_pidfile)
+	rm /tmp/forecast_pidfile
+	echo still running
+    	exit 1
+fi
+
+weather_file=/tmp/weathercache
+weather_icon=$(head -1 $weather_file)
+weather_cond=$(head -2 $weather_file | tail -1)
+weather_temp=$(head -3 $weather_file | tail -1)
+weather_wind=" $(head -4 $weather_file | tail -1)"
+wind_icon=''
+w=$((($(echo "$weather_cond" | wc -c)+10)*6))
+
+clockicon=''
+
+# Print the clock
+#for i in {1..20} ; do
+for i in 1 ; do
+        echo "%{c}$weather_temp $weather_cond"
+	sleep 6
+	rm /tmp/forecast_pidfile
+done | lemonbar -d -o 1 -f "DejaVu Sans:size=9" -f "RobotoMono Nerd Font:size=10" -F "$fg" -B "$bg" -g ${w}x${h}+${x}+$((y + (h+y) * n)) &
+echo $! >> /tmp/forecast_pidfile

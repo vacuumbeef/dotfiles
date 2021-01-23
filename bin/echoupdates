@@ -1,0 +1,16 @@
+#!/bin/bash
+# Echo number of available updates to a file
+
+file=/tmp/updatescache
+
+[ -f $file ] || ( echo 1 ; echo 2 ) >> $file
+
+yay -Syy
+
+pac=$(pacman -Qu | wc -l)
+aur=$(yay -Qua | wc -l)
+echo $pac
+echo $aur
+
+sed -i "1s/.*/$pac/" $file
+sed -i "2s/.*/$aur/" $file

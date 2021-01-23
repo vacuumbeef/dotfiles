@@ -1,0 +1,78 @@
+#! /bin/sh
+[ -f ~/.xprofile ] && . ~/.xprofile
+bspc monitor -d I II III IV V VI VII IIX IX X
+#bspc config external_rules_command ~/.config/bspwm/external_rules
+bspc config border_width         1
+bspc config window_gap           5
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config center_pseudo_tiled  true
+bspc config top_padding 20
+bspc config bottom_padding 20
+bspc config right_padding 20
+bspc config left_padding 20
+bspc config -d VI top_padding 85
+bspc config -d VI bottom_padding 86
+bspc config -d VI left_padding 150
+bspc config -d VI right_padding 150
+bspc config -d VII top_padding 0
+bspc config -d VII bottom_padding 0
+bspc config -d VII left_padding 0
+bspc config -d VII right_padding 0
+
+#bspc rule -a \* node=@/2 presel=south
+bspc rule -a \* state=tiled
+bspc rule -a nvimedit node=@/1 presel=south
+#bspc rule -a \* node=focused split_dir=east
+#bspc rule -a St state=pseudo_tiled
+bspc rule -a qutebrowser ratio=0.3 state=tiled
+bspc rule -a mplayer2 state=floating
+#bspc rule -a mpv state=pseudo_tiled
+#bspc rule -a gl state=pseudo_tiled
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+bspc rule -a Patchage state=floating
+bspc rule -a show-splash-gtk state=floating
+bspc rule -a qjackctl state=floating
+bspc rule -a REAPER state=floating
+bspc rule -a "Tor Browser" state=floating
+#bspc rule -a Sxiv state=floating
+#bspc rule -a St state=pseudo_tiled
+#bspc rule -a lf state=pseudo_tiled
+#bspc rule -a nvim state=pseudo_tiled
+#bspc rule -a vifmrun state=pseudo_tiled
+#bspc rule -a neomutt state=pseudo_tiled
+#bspc rule -a newsboat state=pseudo_tiled
+#bspc rule -a neomutt state=pseudo_tiled
+#bspc rule -a profanity state=pseudo_tiled
+#bspc rule -a Sxiv state=pseudo_tiled
+bspc rule -a scratchpad sticky=on state=floating hidden=on
+
+################
+## WORKSPACES ##
+################
+
+## I ## CODE #
+
+## II ## WEB #
+bspc rule -a qutebrowser desktop='^2'
+bspc rule -a Vivaldi desktop='^2'
+bspc rule -a Opera desktop='^2'
+bspc rule -a Firefox desktop='^2'
+bspc rule -a Chromium desktop='^2'
+
+## III ## WORK #
+bspc rule -a Gimp desktop='^3' 
+bspc rule -a Darktable desktop='^3' 
+bspc rule -a kdenlive desktop='^3' 
+
+## VII ## MUZ #
+bspc rule -a REAPER desktop='^7' 
+bspc rule -a Tracktion desktop='^7' 
+bspc rule -a Patchage desktop='^7' 
+
+## V ## GAMING #
+bspc rule -a Steam desktop='^3' 
+bspc rule -a AllTheHaxx desktop='^3' 

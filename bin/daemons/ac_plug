@@ -1,0 +1,14 @@
+#!/bin/bash
+case $1 in
+	plugged)
+		xbacklight -set "$(cat /tmp/backlight)"
+		canberra-gtk-play -i plugged
+		;;
+	unplugged)
+		canberra-gtk-play -i unplugged &
+		true > /tmp/backlight
+		xbacklight -get >> /tmp/backlight
+		xbacklight -set 10
+		batterify
+		;;
+esac

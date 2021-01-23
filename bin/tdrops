@@ -1,0 +1,9 @@
+#!/bin/bash
+case $@ in
+	qutebrowser) tdrop -n $@ -f "-R" $@ & ;;
+	firefox) tdrop -n $@ -f "-R" $@ & ;;
+	st_main) tdrop -h 350 -w 550 -n $@ -f "-n $@" st & ;;
+	notes) tdrop -h 350 -w 550 -n $@ -f "-c $@ -e nvim -c 'set nu!' ~/otr/wiki/index.wiki" st & ;;
+	vifm) tdrop -h 350 -w 550 -n $@ -f "-n $@ -e vifmrun" st & ;;
+	*) tdrop -h 350 -w 550 -n $@ -f "-n $@ -e $@" st & 
+esac

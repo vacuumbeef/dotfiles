@@ -1,0 +1,12 @@
+#!/bin/bash
+
+cp ~/bin/mpd/Cover.png /tmp/cover.jpg
+exec st -c coversh -e cover.sh &
+sleep 0.1
+exec st -c ncmpcppws -e ncmpcpp -c ~/.config/mpd/ncmpcpp/config -b ~/.config/mpd/ncmpcpp/bindings --host 192.168.43.166 &
+sleep 0.1
+exec st -c cava -e cava &
+sleep 0.1
+bspc node @west -r +40
+bspc node @north -r +80
+mpdrun

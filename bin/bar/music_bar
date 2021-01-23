@@ -1,0 +1,21 @@
+#!/bin/sh
+. "${HOME}/.cache/wal/colors.sh"
+fg=$color7
+bg=$color0
+border=$color12
+nowplaying=$(mpc current)
+
+w=180
+h=25
+x=10
+y=10
+
+killall -q -y 5s zscroll
+#lemonbar -d -F "$fg" -B "$border" -g 186x36+$((xoffset-3))+$((yoffset-3)) &
+curworkspace=$(wmctrl -d | grep '*' | cut -d ' ' -f13)
+if [[ $curworkspace != "VI" ]]; then
+#zscroll -t 8 -b "    " -l 22 "$(mpc current)" | lemonbar -d -u 15 -U "$fg" -f "BitstreamVeraSansMono Nerd Font:size=8" -f "Font Awesome 5 Brands Regular:size=10" -F "$fg" -B "$bg" -g ${w}x${h}+${x}+${y}
+notify-send "Now playing" "$nowplaying"
+else
+	exit
+fi

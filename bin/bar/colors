@@ -1,0 +1,29 @@
+# Base16 Generated
+# Scheme by Flavours
+
+background=#172629
+foreground=#c6d1ca
+
+# normal
+color0=#172629
+color1=#a46b6b
+color2=#7a786f
+color3=#348482
+color4=#428286
+color5=#8c745e
+color6=#328480
+color7=#c6d1ca
+
+# bright
+color8=#808c89
+color9=#90734c
+color10=#3a4849
+color11=#5d6a69
+color12=#a3aea9
+color13=#ced7d1
+color14=#35838a
+color15=#d7ded9
+
+bg=$background
+fg=$foreground
+bg2=$color0

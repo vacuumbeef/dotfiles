@@ -1,0 +1,6 @@
+#!/bin/bash
+cp $1 $HOME/.config/wall.jpg
+feh --bg-fill $WALL
+flavours generate dark $WALL
+flavours apply generated
+betterlockscreen -u $WALL

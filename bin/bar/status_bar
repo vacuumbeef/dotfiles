@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+date_bar &
+battery_bar &
+forecast_bar &
+updates_bar &

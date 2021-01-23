@@ -1,0 +1,51 @@
+#!/usr/bin/bash
+source ~/bin/bar/colors
+if [ -f "/tmp/batt_pidfile" ]; then
+        kill -9 $(cat /tmp/batt_pidfile)
+        rm /tmp/batt_pidfile
+	echo still running
+    	exit 1
+fi
+
+BATTERY_PATH="/sys/class/power_supply/BAT0"
+BATTERY_ICON_CHARGING=''
+
+capacity=$(cat "$BATTERY_PATH"/capacity)
+status=$(cat "$BATTERY_PATH"/status)
+
+if [[ "$status" = "Discharging" ]]; then
+        if ((capacity >= 95)); then
+                battery_icon=''
+        elif ((capacity >= 90)); then
+                battery_icon=''
+        elif ((capacity >= 80)); then
+                battery_icon=''
+        elif ((capacity >= 70)); then
+                battery_icon=''
+        elif ((capacity >= 60)); then
+                battery_icon=''
+        elif ((capacity >= 50)); then
+                battery_icon=''
+        elif ((capacity >= 40)); then
+                battery_icon=''
+        elif ((capacity >= 30)); then
+                battery_icon=''
+        elif ((capacity >= 20)); then
+                battery_icon=''
+        elif ((capacity >= 10)); then
+                battery_icon=''
+        elif ((capacity >= 5)); then
+                battery_icon=''        else
+                battery_icon=''
+        fi
+else
+       battery_icon=$BATTERY_ICON_CHARGING
+fi
+
+
+for i in 1; do
+        echo "%{c}$battery_icon $(cat "$BATTERY_PATH"/capacity)%"
+        sleep 6
+        rm /tmp/batt_pidfile
+done | lemonbar -d -o 1 -f "DejaVu Sans:size=8" -f "RobotoMono Nerd Font:size=9" -F "$fg" -B "$bg" -g 60x25+10+70 &
+echo $! >> /tmp/batt_pidfile

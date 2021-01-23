@@ -1,0 +1,46 @@
+#!/bin/bash
+file=/tmp/weathercache
+
+weather=$(curl wttr.in/saint-petersburg?format="%C")
+temp=$(curl wttr.in/saint-petersburg?format="%t")
+wind="$(curl wttr.in/saint-petersburg?format="%w")"
+
+case $weather in
+	"Sunny") icon= ;;
+	"Clear") icon= ;;
+	"Partly cloudy") icon= ;;
+	"Cloudy") icon= ;;
+	"Very cloudy") icon= ;;
+	"Overcast") icon= ;;
+	"Fog") icon= ;;
+	"Mist") icon= ;;
+	"Light Rain") icon= ;;
+	"Patchy rain possible") icon= ;;
+	"Moderate or heavy rain shower") icon= ;;
+	"Heavy Rain") icon= ;;
+	"Thundery Heavy Rain") icon= ;;
+	"Thunderstorm") icon= ;;
+	"Light Rain With Thunderstorm") icon= ;;
+	"Light rain and hail with thunderstorm") icon= ;;
+	"Light rain shower, light rain and hail with thunderstorm") icon= ;;
+	"Shower") icon= ;;
+	"Light Shower") icon= ;;
+	"Light Rain Shower") icon= ;;
+	"Light rain shower") icon= ;;
+	"Light Rain And Snow Shower") icon= ;;
+	"Heavy Shower") icon= ;;
+	"Thundery Shower") icon= ;;
+	"Light Sleet") icon= ;;
+	"Light Sleet Shower") icon= ;;
+	"Light Snow") icon= ;;
+	"Heavy Snow") icon= ;;
+	"Snow Shower") icon= ;;
+	"Heavy Snow Shower") icon= ;;
+	"Thundery Snow Shower") icon= ;;
+	*) icon=E 
+	#weather=""
+	#temp=Error
+	#wind=Error
+esac
+
+rm -rf $file && ( echo $icon ; echo $weather ; echo $temp ; echo $wind ) >> $file

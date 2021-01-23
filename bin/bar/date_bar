@@ -1,0 +1,31 @@
+#!/usr/bin/env zsh
+source ~/bin/bar/colors
+
+w=130
+h=25
+x=10
+y=10
+
+if [ -f "/tmp/date_pidfile" ]; then
+	kill -9 $(cat /tmp/date_pidfile)
+	rm -f /tmp/date_pidfile
+    	exit 1
+fi
+
+# Define the clock
+Date() {
+        DATE=$(date "+%d %b, %H:%M")
+
+        echo -n "$DATE"
+}
+
+clockicon=''
+
+# Print the clock
+#for i in {1..20} ; do
+for i in 1 ; do
+        echo "%{c}$(Date)"
+	sleep 6
+	rm -f /tmp/date_pidfile
+done | lemonbar -d -o 1 -f "DejaVu Sans:size=9" -f "RobotoMono Nerd Font:size=10" -F "$fg" -B "$bg" -g ${w}x${h}+${x}+$((y + (h+y) * n)) &
+echo $! >> /tmp/date_pidfile

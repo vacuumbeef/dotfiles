@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# works with eda.ru (I hope so)
+
+inputfile=/tmp/recipetemp
+wikipath=$HOME/otr/wiki/recipes/
+wikipage=$1
+curl $2 >> $inputfile
+title=$(cat $inputfile | grep '<meta property="og:title" content="' | cut -c37- | cut -d'.' -f1)
+printf "= $title =\n\n*Ингредиенты*\n" >> $wikipath$wikipage.wiki
+cat $inputfile | grep -m 1 -A 500 '<div class="ingredients-list__content" cellpadding="0" cellspacing="0">' | grep -m 1 -B 500 '<div class="recipe__instruction">' | grep 'data-ingredient-object=' |  cut -d'"' -f8-100 | rev | cut -c5- | rev | sed 's/", "amount": "/ - /' | sed -e 's/^/* /' >> $wikipath$wikipage.wiki
+printf "\n*Приготовление*\n" >> $wikipath$wikipage.wiki
+cat $inputfile | grep -m 1 -A 1000 '<div class="recipe__instruction">' | grep -m 1 -B 1000 '<div class="recipe__divider"></div>' | grep '<span>' | awk 'NR>1' | sed -e "s_<[^<]*>__g" | sed 's/^[ \t]*//' >> $wikipath$wikipage.wiki
+echo "[[$wikipage|$title]]" >> $HOME/otr/wiki/recipes/recipes.wiki
+
+rm $inputfile
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Ingredients
+#printf "*Ингредиенты*\n$(readability-scrape --html $1 | grep data-ingredient-object | rev | cut -c10- | rev | cut -c78- | sed 's/&quot;, &quot;amount&quot;: &quot;/ - /gi' | sed -e 's/^/* /')" >> ~/recipe
+#echo "" >> ~/recipe
+#printf " \n*Приготовлениe*\n$(readability-scrape --html $1 | grep -A 2 "li data-counter" | grep "</span>" | cut -c27- | sed -e 's/<\/span>//')" >> ~/recipe

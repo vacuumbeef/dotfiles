@@ -1,0 +1,5 @@
+#!/bin/bash
+rm -f $HOME/otr/git/st/config.h
+cp $HOME/otr/git/st/config.def.h_backup $HOME/otr/git/st/config.def.h
+patch -d $HOME/otr/git/st < $HOME/otr/git/st/flavours_diff
+sudo make -C $HOME/otr/git/st clean install

@@ -1,0 +1,29 @@
+#!/bin/sh
+# automates scripting a little
+# If you pass only one argument, it takes it as a name for a new script
+# If more than one - first one as directory name (created if it does not exist), second as a name
+
+# Directory where scripts are stored
+dir=$HOME/bin
+
+# last argument
+for l in $@; do :; done
+
+# checks if there are more than one argument
+if [[ $(echo "$@" | wc -w) -ge 2 ]]; then
+	[ -d $dir/$1 ] || mkdir -p $dir/$1
+	folder="$dir/$1"
+else
+	folder=$dir
+fi
+
+# name of the script you want to make
+file="$folder/$l"
+
+if [[ -f $file ]]; then
+  nvim $file
+else
+  echo '#!/bin/bash' > $file
+  chmod +x $file
+  nvim $file
+fi

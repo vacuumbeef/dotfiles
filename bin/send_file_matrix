@@ -1,0 +1,12 @@
+#!/bin/bash
+file=$1
+room=$(cat $HOME/.config/matrix-commander/rooms | awk '{print $1}' | dmenu_uni)
+roomid=$(grep $room $HOME/.config/matrix-commander/rooms | awk '{print $2}')
+case $file in
+	*jpg|*png|*bmp) arg='-i' ;;
+	*mp3|*wav|*ogg) arg='-a' ;;
+	*mp4) arg='-f' ;;
+	*) arg='-f'
+esac
+echo $roomid
+matrix-commander -m ' ' -r $roomid $arg "$file"

@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+
+. "${HOME}/.cache/wal/colors.sh"
+fg=$color0
+bg=$color2
+border=$color12
+
+w=130
+h=25
+x=10
+y=10
+
+if [ -f "/tmp/weather_pidfile" ]; then
+	kill -9 $(cat /tmp/weather_pidfile)
+	rm /tmp/weather_pidfile
+	echo still running
+    	exit 1
+fi
+
+# Define the clock
+Date() {
+        DATE=$(date "+%d %b, %H:%M")
+
+        echo -n "$DATE"
+}
+
+clockicon=''
+
+# Print the clock
+for i in {1..20} ; do
+        echo "%{c}$(Date)"
+        sleep 0.2
+done | lemonbar -d -o 1 -f "DejaVu Sans:size=9" -f "RobotoMono Nerd Font:size=10" -F "$fg" -B "$bg" -g ${w}x${h}+${x}+$((y + (h+y) * n)) &
+echo $! >> /tmp/weather_pidfile

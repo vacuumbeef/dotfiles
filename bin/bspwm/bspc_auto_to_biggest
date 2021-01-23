@@ -1,0 +1,13 @@
+#!/bin/bash
+# Watches for windows with specified wm_class and moves it to the biggest window on current workspace
+bspc subscribe node_add | while read line; do
+CLASS=$(wm_class_active_window | awk -F'[""]' 'NR==1{print tolower ($4)}')
+case $CLASS in
+	nvimedit) sleep 0.1
+		bspc node --to-node biggest.local ;;
+	rtvmain) sleep 0.1
+		bspc node --to-node biggest.local ;;
+	linksmain) sleep 0.1
+		bspc node --to-node biggest.local 
+esac
+done

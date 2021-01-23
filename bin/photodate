@@ -1,0 +1,12 @@
+#!/bin/bash
+# Renames photos by date extracted from EXIF data.
+
+IFS='
+'
+mkdir output
+for file in $(ls); do
+	ext=$(echo $file | rev | cut -d'.' -f1 | rev)
+	datename=$(identify -format "%[EXIF:DateTime]" $file | sed 's/:/-/g; s/-/:/3g; s/ /_/')
+	echo "Renaming $file"
+	cp $file output/"$datename".$ext
+done

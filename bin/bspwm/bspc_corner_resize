@@ -1,0 +1,50 @@
+#!/bin/bash
+# Resize a window that was moved to corner with bspc_move_to_corner
+
+RX=$(( $(xdpyinfo | grep dimensions | cut -d " " -f7 | cut -d "x" -f1) - 316 ))
+RXP=$(( $(xdpyinfo | grep dimensions | cut -d " " -f7 | cut -d "x" -f1) - 516 ))
+Y=$(( $(xdpyinfo | grep dimensions | cut -d "x" -f2 | cut -d "p" -f1) - 185 ))
+YP=$(( $(xdpyinfo | grep dimensions | cut -d "x" -f2 | cut -d "p" -f1) - 298 ))
+posx=$(xdotool getactivewindow getwindowgeometry | awk '{print $2}' | sed -n 2p | cut -d "," -f1)
+posy=$(xdotool getactivewindow getwindowgeometry | awk '{print $2}' | sed -n 2p | cut -d "," -f2)
+geox=$(xdotool getactivewindow getwindowgeometry | awk '{print $2}' | sed -n 3p | cut -d "x" -f1)
+
+if [[ $geox == 300 ]];then
+	echo 1
+	if [[ $posx == $RX ]];then
+		echo 2
+		if [[ $posy == 583 ]];then
+			echo 3
+			bspc node -z top_left -200 -113
+		elif [[ $posy == 15 ]]; then
+			echo 4
+			bspc node -z bottom_left -200 113
+		fi
+	elif [[ $posx == 15 ]]; then
+		if [[ $posy == $Y ]]; then
+			echo 5
+			bspc node -z top_right 200 -113
+		elif [[ $posx == $posy ]]; then 
+			echo 6
+			bspc node -z bottom_right 200 113
+		fi
+	fi
+elif [[ $geox == 500 ]];then
+	if [[ $posx == $RXP ]];then
+		if [[ $posy == 470 ]];then
+			echo 7
+			bspc node -z top_left 200 113
+		elif [[ $posy == 15 ]]; then
+			echo 8
+			bspc node -z bottom_left 200 -113
+		fi
+	elif [[ $posy == $YP ]]; then
+		if [[ $posx == 15 ]]; then
+		echo 9
+		bspc node -z top_right -200 113
+		fi
+	elif [[ $posx == $posy ]]; then 
+		echo 10
+		bspc node -z bottom_right -200 -113
+	fi
+fi

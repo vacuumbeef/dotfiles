@@ -1,0 +1,14 @@
+#!/bin/bash
+# Toggle state of window
+
+floating() {
+	[ -z "$(bspc query -N -n focused.floating)" ] && bspc node focused -t floating && exit 0
+	bspc node focused -t tiled
+}
+pseudo_tiled() {
+	[ -z "$(bspc query -N -n focused.pseudo_tiled)" ] && bspc node focused -t pseudo_tiled && exit 0
+	bspc node focused -t tiled
+}
+
+[ $1 = floating ] && floating $$ exit 0
+[ $1 = pseudo_tiled ] && pseudo_tiled
