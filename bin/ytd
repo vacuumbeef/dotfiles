@@ -1,6 +1,4 @@
 #!/bin/bash
-dunstify -r 123 "Youtube-DL" "Downloading video"
-
 help() {
 	echo
 	echo '--best - best possible quality'
@@ -21,6 +19,8 @@ case $1 in
 	"--lowest") quality="bestvideo[height<=360][vcodec=vp9]+bestaudio[acodec=opus]" ;;
 	"--240") quality="bestvideo[height<=240][vcodec=vp9]+bestaudio[acodec=opus]" ;;
 	"--144") quality="bestvideo[height<=144][vcodec=vp9]+bestaudio[acodec=opus]" ;;
-	*) help
+	*) help && exit
 esac
-youtube-dl -f $quality -o "$HOME/dwn/vid/%(title)s.%(ext)s" "$2" && dunstify -r 123 "Youtube-DL" "Done" || dunstify -r 123 -u critical "Youtube-DL" "Error"
+
+dunstify -r 12318640267 "Youtube-DL" "Downloading video"
+youtube-dl -f $quality -o "$HOME/dwn/vid/%(title)s.%(ext)s" "$2" && dunstify -r 12318640267 "Youtube-DL" "Downloading video" && dunstify -r 12318640267 "Youtube-DL" "Done" || dunstify -r 12318640267 -u critical "Youtube-DL" "Error"
