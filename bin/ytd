@@ -19,7 +19,7 @@ case $1 in
 	"--lowest") quality="bestvideo[height<=360][vcodec=vp9]+bestaudio[acodec=opus]" ;;
 	"--240") quality="bestvideo[height<=240][vcodec=vp9]+bestaudio[acodec=opus]" ;;
 	"--144") quality="bestvideo[height<=144][vcodec=vp9]+bestaudio[acodec=opus]" ;;
-	"--audio") youtube-dl -x --audio-format -o "$HOME/dwn/%(title)s.%(ext)s" mp3 "$2" && exit ;;
+	"--audio") youtube-dl -x --audio-format mp3 -o "$HOME/dwn/%(title)s.%(ext)s" "$2" && exit ;;
 	*) help && exit
 esac
 
